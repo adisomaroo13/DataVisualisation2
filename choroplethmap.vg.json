@@ -1,0 +1,74 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 520,
+  "title": "Clean electricity share by country (2024)",
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    { "data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#eef6fb"} },
+    { "data": {"graticule": {"step": [30, 30]}}, "mark": {"type": "geoshape", "stroke": "#ccd6dd", "strokeWidth": 0.5} },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#f2f2f2", "stroke": "white", "strokeWidth": 0.4}
+    },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/adisomaroo13/HomeworkW10/main/GER2025_2024_clean_country_percent.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {
+          "lookup": "Country code",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+              "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+            },
+            "key": "properties.ISO_A3",
+            "fields": ["type", "properties", "geometry"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.4},
+      "encoding": {
+        "color": {
+          "field": "Value",
+          "type": "quantitative",
+          "title": "Clean electricity share (%)",
+          "scale": { "scheme": "teals", "domain": [0, 100] },
+          "legend": { "orient": "right", "format": ".0f" },
+          "condition": { "test": "!isValid(datum.Value)", "value": "#d1d5db" }
+        }
+        ,
+        "tooltip": [
+          {"field": "properties.NAME", "title": "Country"},
+          {"field": "properties.ISO_A3", "title": "ISO3"},
+          {"field": "Value", "type": "quantitative", "title": "Clean %", "format": ".1f"}
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "mesh": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "white", "strokeWidth": 1.2, "opacity": 0.9}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "mesh": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "#374151", "strokeWidth": 0.6, "opacity": 0.95}
+    }
+  ],
+  "config": {
+    "axis": {"grid": false}
+  }
+}
