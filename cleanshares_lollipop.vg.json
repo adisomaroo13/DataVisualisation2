@@ -1,0 +1,68 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Clean electricity share (2024) — Top-N countries",
+    "width": 900,
+    "height": 640,
+  
+    "data": {
+      "url": "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/GER2025_2024_clean_country_percent.csv",
+      "format": { "type": "csv", "parse": { "Value": "number" } }
+    },
+  
+    "params": [
+      {
+        "name": "topN",
+        "value": 15,
+        "bind": { "input": "range", "min": 5, "max": 30, "step": 1, "name": "Show Top-N: " }
+      }
+    ],
+  
+    "transform": [
+      { "calculate": "datum['Country name'] ? datum['Country name'] : datum['Country code']", "as": "Label" },
+      { "filter": "isValid(datum.Value)" },
+  
+      { "window": [{ "op": "rank", "as": "r" }], "sort": [{ "field": "Value", "order": "descending" }] },
+      { "filter": "datum.r <= topN" }
+    ],
+  
+    "layer": [
+      {
+        "mark": { "type": "rule", "stroke": "#94a3b8", "strokeWidth": 3, "opacity": 0.7 },
+        "encoding": {
+          "y": {
+            "field": "Label",
+            "type": "nominal",
+            "title": null,
+            "sort": { "field": "Value", "order": "descending" }  
+          },
+          "x": { "field": "Value", "type": "quantitative", "scale": { "domain": [0, 100] } },
+          "x2": { "value": 0 }                                     
+        }
+      },
+      {
+        "mark": { "type": "circle", "size": 120, "color": "#0ea5a4" },
+        "encoding": {
+          "y": {
+            "field": "Label",
+            "type": "nominal",
+            "sort": { "field": "Value", "order": "descending" }
+          },
+          "x": {
+            "field": "Value",
+            "type": "quantitative",
+            "title": "Clean electricity share (%)",
+            "scale": { "domain": [0, 100] }
+          },
+          "tooltip": [
+            { "field": "Label", "title": "Country" },
+            { "field": "Country code", "title": "ISO3" },
+            { "field": "Value", "title": "Clean share (%)", "format": ".1f" },
+            { "field": "r", "title": "Rank" }
+          ]
+        }
+      }
+    ],
+  
+    "config": { "axis": { "grid": false }, "view": { "stroke": null } }
+  }
+  
