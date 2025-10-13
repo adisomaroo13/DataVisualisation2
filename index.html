@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Clean Electricity & Coal — Global Patterns</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <h1 class="title">Clean Electricity & Coal: Global Patterns</h1>
+      <p class="subtitle">Where in the world is energy getting cleaner? And how did coal unit designs evolve?</p>
+    </header>
+
+    <section class="card" id="overview">
+      <div class="grid">
+        <div>
+          <p>Clean electricity is rising worldwide—but not evenly, and legacy coal still shapes today’s grids. This page pairs a 2024 global choropleth of clean-electricity share with an interactive scatter of coal unit capacity by commissioning year. Together, they reveal where power is already clean and how coal plant design evolved—from the growth of large baseload units in the 1990s–2000s to a slowdown after 2010 as renewables scaled. Use the map to spot leaders and laggards, then filter the scatter by decade or minimum capacity to explore patterns, outliers, and turning points. The goal: turn a complex transition into clear, actionable insight.</p>
+        </div>
+        <div>
+          <p>Electricity systems are in the middle of a rewrite. Some countries now generate most of their power from low-carbon sources, while others still lean heavily on coal built in an earlier era. Today, we will show that split-screen story: a snapshot of who's clean today, paired with how coal unit designs grew through the 1990s–2000s and slowed after 2010 as renewables accelerated.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="map">
+      <h2>Clean electricity share by country (2024)</h2>
+      <div id="vis-map" class="visbox full"></div>
+      <p>Darker teal = higher share, light grey = no data. Map uses the Equal Earth projection; boundaries from Natural Earth. Hover a country for its exact percentage and ISO-3 code; legend shows the 0–100% scale. Note: values reflect each country’s generation mix in 2024 and may mask sub-national variation</p>
+      <p>In 2024, Kenya ranks highest for clean-electricity share, while Oman records the lowest. Broadly, parts of East Africa and Latin America show relatively higher clean shares, whereas several Middle Eastern producers and a number of Sub-Saharan countries without large hydro/nuclear capacity remain lower.</p>
+      <p>Use the map to find out the countries exact percentages.</p>
+    </section>
+
+    <section class="card" id="topN">
+      <h2>Top-N countries by clean electricity share (2024)</h2>
+      <div id="vis-topN" class="visbox full"></div>
+      <p class="caption">Description of the graph and analysis goes here</p>
+    </section>
+
+    <section class="card" id="scatter">
+      <h2>Coal plant unit size vs commissioning year</h2>
+      <div class="grid">
+        <div id="vis-scatter" class="visbox"></div>
+      </div>
+    </section>
+
+    <section class="card" id="heatmap">
+      <h2>Where coal builds clustered by size and time</h2>
+      <div id="vis-heatmap" class="visbox full"></div>
+      <p class="caption">The heatmap will be described and finding will be shown here</p>
+    </section>
+
+  </div>
+
+  <script>
+
+    const SPEC_MAP      = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/choroplethmap.vg.json";
+    const SPEC_TOPN     = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/cleanshares_lollipop.vg.json";
+    const SPEC_SCATTER  = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/scatterplot_coal.vg.json";
+    const SPEC_HEATMAP  = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/heatmap_commissioningyr.vg.json";
+
+    vegaEmbed("#vis-map",     SPEC_MAP,     { actions:false }).catch(console.error);
+    vegaEmbed("#vis-topN",    SPEC_TOPN,    { actions:false }).catch(console.error);
+    vegaEmbed("#vis-scatter", SPEC_SCATTER, { actions:false }).catch(console.error);
+    vegaEmbed("#vis-heatmap", SPEC_HEATMAP, { actions:false }).catch(console.error);
+
+  </script>
+</body>
+</html>
