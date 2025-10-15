@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Clean electricity share (2024) — Top-N countries",
+    "title": "Clean electricity share (2024) — Top 5 countries",
     "width": 900,
     "height": 640,
   
@@ -9,20 +9,11 @@
       "format": { "type": "csv", "parse": { "Value": "number" } }
     },
   
-    "params": [
-      {
-        "name": "topN",
-        "value": 15,
-        "bind": { "input": "range", "min": 5, "max": 15, "step": 1, "name": "Show Top-N: " }
-      }
-    ],
-  
     "transform": [
       { "calculate": "datum['Country name'] ? datum['Country name'] : datum['Country code']", "as": "Label" },
       { "filter": "isValid(datum.Value)" },
-  
       { "window": [{ "op": "rank", "as": "r" }], "sort": [{ "field": "Value", "order": "descending" }] },
-      { "filter": "datum.r <= topN" }
+      { "filter": "datum.r <= 5" }
     ],
   
     "layer": [
@@ -33,10 +24,10 @@
             "field": "Label",
             "type": "nominal",
             "title": null,
-            "sort": { "field": "Value", "order": "descending" }  
+            "sort": { "field": "Value", "order": "descending" }
           },
           "x": { "field": "Value", "type": "quantitative", "scale": { "domain": [0, 100] } },
-          "x2": { "value": 0 }                                     
+          "x2": { "value": 0 }
         }
       },
       {
@@ -54,7 +45,7 @@
             "scale": { "domain": [0, 100] }
           },
           "tooltip": [
-            { "field": "Label", "title": "Country" },
+            { "field": "Area", "title": "Country" },
             { "field": "Country code", "title": "ISO3" },
             { "field": "Value", "title": "Clean share (%)", "format": ".1f" },
             { "field": "r", "title": "Rank" }
