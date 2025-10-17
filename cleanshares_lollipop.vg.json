@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Clean electricity share (2024) — Top 5 countries",
-    "width": 680,
+    "width": 540,
     "height": 300,
   
     "data": {
