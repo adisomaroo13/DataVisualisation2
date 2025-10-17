@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Coal plant unit size vs commissioning year",
-  "width": 900,
+  "width": 600,
   "height": 420,
 
   "data": {
