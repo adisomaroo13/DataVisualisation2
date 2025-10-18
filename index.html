@@ -17,63 +17,131 @@
 </head>
 <body>
   <div class="container">
+
     <header class="hero">
       <h1 class="title">Clean Electricity & Coal: Global Patterns</h1>
       <p class="subtitle">Where in the world is energy getting cleaner? And how did coal unit designs evolve?</p>
     </header>
 
-    <section class="card" id="overview">
-      <div class="grid">
-        <div>
-          <p>Clean electricity is rising worldwide—but not evenly, and legacy coal still shapes today’s grids. This page pairs a 2024 global choropleth of clean-electricity share with an interactive scatter of coal unit capacity by commissioning year. Together, they reveal where power is already clean and how coal plant design evolved—from the growth of large baseload units in the 1990s–2000s to a slowdown after 2010 as renewables scaled. Use the map to spot leaders and laggards, then filter the scatter by decade or minimum capacity to explore patterns, outliers, and turning points. The goal: turn a complex transition into clear, actionable insight.</p>
-        </div>
-        <div>
-          <p>Electricity systems are in the middle of a rewrite. Some countries now generate most of their power from low-carbon sources, while others still lean heavily on coal built in an earlier era. Today, we will show that split-screen story: a snapshot of who's clean today, paired with how coal unit designs grew through the 1990s–2000s and slowed after 2010 as renewables accelerated.</p>
-        </div>
-      </div>
-    </section>
+    <main class="dash">
+      <section class="card info col-4">
+        <h3>What we are analysing</h3>
+        <p>We look at leaders in clean energy (as of 2024)
+          We also analyse clusters where coal is still being used, and 
+          how it evolves over the years.
+        </p>
+      </section>
 
-    <section class="card" id="map">
-      <h2>Clean electricity share by country (2024)</h2>
-      <div id="vis-map" class="visbox full"></div>
-      <p>Darker teal = higher share, light grey = no data. Map uses the Equal Earth projection; boundaries from Natural Earth. Hover a country for its exact percentage and ISO-3 code; legend shows the 0–100% scale. Note: values reflect each country’s generation mix in 2024 and may mask sub-national variation</p>
-      <p>In 2024, Kenya ranks highest for clean-electricity share, while Oman records the lowest. Broadly, parts of East Africa and Latin America show relatively higher clean shares, whereas several Middle Eastern producers and a number of Sub-Saharan countries without large hydro/nuclear capacity remain lower.</p>
-      <p>Use the map to find out the countries exact percentages.</p>
-    </section>
+      <section class="card info col-4">
+        <h3>Why it matters</h3>
+        <p>Countries starting clean today can decarbonise faster. Where coal units are newer and larger, retirement or retrofit timelines matter more. Reading these together shows who’s clean and the context i.e what legacy units we built</p>
+      </section>
 
-    <section class="card" id="topN">
-      <h2>Top-N countries by clean electricity share (2024)</h2>
-      <div id="vis-topN" class="visbox full"></div>
-      <p class="caption">Description of the graph and analysis goes here</p>
-    </section>
+      <section class="card info col-4">
+        <h3>How to read the visualisation</h3>
+          <p>
+            Start with the map: darker teal means a cleaner power mix. Hover to see exact percentages.
+            The lollipop chart then spotlights the top performers, while the top &amp; bottom scatter shows how the rest of the world spreads out, with a dashed line marking the 50% milestone.
+            Finally, the coal charts explain the “why”: dots and heat cells reveal when and what size coal units were built. Use the slider to focus on bigger units and watch how patterns change by decade.
+          </p>
+      </section>
 
-    <section class="card" id="scatter">
-      <h2>Coal plant unit size vs commissioning year</h2>
-      <div class="grid">
+      <section class="card col-12" id="map">
+        <h2>Clean electricity share by country (2024)</h2>
+        <div id="vis-map" class="visbox"></div>
+        <p>In 2024, Kenya ranks highest for clean electricity share, while Oman is lowest</p>
+        <p>Oman records the lowest share, highlighting fossil dependence and constraints</p>
+        <p>Hydro and nuclear capacity drive many top-performing regions this year</p>
+        <p>Latin America and East Africa show strong clean generation rates</p>
+      </section>
+
+      <section class="card col-6" id="topN">
+        <h2>Top countries by clean electricity share (2024)</h2>
+        <div id="vis-topN" class="visbox"></div>
+        <p>Sweden leads 2024 clean electricity share among top countries.</p>
+        <p>Norway, Switzerland, Uruguay, Finland also perform exceptionally well.</p>
+        <p>All five exceed 90% clean electricity generation shares.</p>
+        <p>Hydropower and nuclear capacity likely drive these consistent outcomes.</p>
+      </section>
+
+      <section class="card col-6" id="topBottom">
+        <h2>Top &amp; Worst performers (2024)</h2>
+        <div id="vis-topbottom" class="visbox"></div>
+        <p>Most countries cluster mid-range, extremes sit at the tails</p>
+      </section>
+
+      <section class="card col-8" id="scatter">
+        <h2>Coal plant unit size vs commissioning year</h2>
         <div id="vis-scatter" class="visbox"></div>
-      </div>
-    </section>
+        <p class="caption">Bigger coal units surged through the 1990s to the 2000s.
+          Post-2010, growth cools as renewables rise.
+          Use the slider to focus on mid-to-large units.
+          </p>
+      </section>
 
-    <section class="card" id="heatmap">
-      <h2>Where coal builds clustered by size and time</h2>
-      <div id="vis-heatmap" class="visbox full"></div>
-      <p class="caption">The heatmap will be described and finding will be shown here</p>
-    </section>
+      <section class="card info col-4">
+        <h3>Why this pattern?</h3>
+        <p>
+          The rise of large coal units in the 1990s to 2000s mirrors an era of
+          fast-growing demand, cheap capital and a push for steady baseload. Bigger
+          turbines meant better efficiency, so many countries standardized on
+          300 to 1,000 MW blocks.
+        </p>
+        <p>
+          After 2010 the curve bends: renewables became cheaper, air quality rules
+          tightened, and financiers raised the cost of coal. Mega projects slowed,
+          new builds shifted smaller or stopped, and retirements began to nibble at
+          the fleet. Outliers often reflect captive industrial plants, late stage
+          completions, or refurbishments.
+        </p>
+        <h4 class="subtle">What this suggests</h4>
+        <p>
+          Systems that built the largest units face longer decarbonisation lead times,
+          while countries with fewer post 2010 additions can pivot faster to clean
+          power without stranding new assets.
+        </p>
+      </section>
 
+      <section class="card col-12" id="heatmap">
+        <h2>Where coal builds clustered by size and time</h2>
+        <div id="vis-heatmap" class="visbox"></div>
+        <p class="caption">Each cell shows the number of coal units in a 5 year x 100MW bin</p>
+      </section>
+
+      <section class="card col-12" id="conclusion">
+        <h2>Takeaway</h2>
+        <p>Clean leaders are clear: Sweden, Norway, Switzerland, Uruguay and Finland each exceed 90% in 2024, while Oman sits lowest</p>
+        <p>Coal unit sizes grew through the 1990s to 2000s but slowed after 2010 as renewables expanded</p>
+        <p>The heatmap’s build “hot boxes” and empty bins show an uneven, ongoing transition: Strong progress in some regions, persistent fossil dependence in others</p>
+      </section>
+
+      <section class="card col-12" id="metadata">
+        <p><strong>Author:</strong> Aditya Ryan Somaroo</p>
+        <p><strong>Student ID:</strong> 33046026</p>
+        <p><strong>Date:</strong> 18/10/2025</p>
+        <p><strong>Data sources:</strong></p>
+        <ul>
+          <li><a href="https://www.kaggle.com/datasets/dianaddx/global-power-plant-database" target="_blank" rel="noopener">Global Power Plant Database (Kaggle)</a></li>
+          <li><a href="https://ember-energy.org/data/yearly-electricity-data" target="_blank" rel="noopener">Ember — Yearly Electricity Data</a></li>
+        </ul>
+      </section>
+
+    </main>
   </div>
 
   <script>
+    const SPEC_MAP        = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/choroplethmap.vg.json";
+    const SPEC_TOPN       = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/cleanshares_lollipop.vg.json";
+    const SPEC_TOPBOTTOM  = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/topbottomscatter.vg.json";
+    const SPEC_SCATTER    = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/scatterplot_coal.vg.json";
+    const SPEC_HEATMAP    = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/heatmap_commissioningyr.vg.json";
 
-    const SPEC_MAP      = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/choroplethmap.vg.json";
-    const SPEC_TOPN     = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/cleanshares_lollipop.vg.json";
-    const SPEC_SCATTER  = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/scatterplot_coal.vg.json";
-    const SPEC_HEATMAP  = "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/heatmap_commissioningyr.vg.json";
-
-    vegaEmbed("#vis-map",     SPEC_MAP,     { actions:false }).catch(console.error);
-    vegaEmbed("#vis-topN",    SPEC_TOPN,    { actions:false }).catch(console.error);
-    vegaEmbed("#vis-scatter", SPEC_SCATTER, { actions:false }).catch(console.error);
-    vegaEmbed("#vis-heatmap", SPEC_HEATMAP, { actions:false }).catch(console.error);
-
+    vegaEmbed("#vis-map",       SPEC_MAP,       { actions:false }).catch(console.error);
+    vegaEmbed("#vis-topN",      SPEC_TOPN,      { actions:false }).catch(console.error);
+    vegaEmbed("#vis-topbottom", SPEC_TOPBOTTOM, { actions:false }).catch(console.error);
+    vegaEmbed("#vis-scatter",   SPEC_SCATTER,   { actions:false }).catch(console.error);
+    vegaEmbed("#vis-heatmap",   SPEC_HEATMAP,   { actions:false }).catch(console.error);
   </script>
+  
 </body>
 </html>
