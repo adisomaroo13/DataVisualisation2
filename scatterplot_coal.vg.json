@@ -6,20 +6,13 @@
 
   "data": {
     "url": "https://raw.githubusercontent.com/adisomaroo13/DataVisualisation2/main/GlobalPowerPlantDB.csv",
-    "format": {
-      "type": "csv",
-      "parse": { "commissioning_year": "number", "capacity_mw": "number" }
-    }
+    "format": { "type": "csv", "parse": { "commissioning_year": "number", "capacity_mw": "number" } }
   },
 
   "params": [
-    {
-      "name": "capacity_min",
-      "value": 0,
-      "bind": { "input": "range", "min": 0, "max": 2000, "step": 50, "name": "Min capacity (MW): " }
-    },
-    {
-      "name": "decade_select",
+    { "name": "capacity_min", "value": 0,
+      "bind": { "input": "range", "min": 0, "max": 2000, "step": 50, "name": "Min capacity (MW): " } },
+    { "name": "decade_select",
       "bind": {
         "input": "select",
         "options": [null, 1970, 1980, 1990, 2000, 2010, 2020],
@@ -28,12 +21,15 @@
       }
     }
   ],
+
   "transform": [
     { "filter": "isValid(datum.commissioning_year) && isValid(datum.capacity_mw)" },
     { "filter": "datum.commissioning_year >= 1960 && datum.commissioning_year <= 2024" },
     { "filter": "datum.capacity_mw >= 50 && datum.capacity_mw <= 2000" },
-
     { "filter": "datum.capacity_mw >= capacity_min" },
+
+    { "filter": "floor(datum.commissioning_year) == datum.commissioning_year" },
+
     { "calculate": "floor(datum.commissioning_year/10)*10", "as": "decade" },
     { "filter": "decade_select == null || datum.decade == decade_select" },
     { "window": [{"op": "rank", "as": "rank_cap"}], "sort": [{"field": "capacity_mw", "order": "descending"}] }
@@ -47,7 +43,8 @@
           "field": "commissioning_year",
           "type": "quantitative",
           "title": "Commissioning year",
-          "scale": { "domain": [1960, 2025], "nice": false }
+          "scale": { "domain": [1960, 2025], "nice": false },
+          "axis": { "format": "d" }       
         },
         "y": {
           "field": "capacity_mw",
@@ -61,35 +58,41 @@
           "title": "Decade",
           "sort": [1970, 1980, 1990, 2000, 2010, 2020],
           "scale": {
-            "range": [
-              "#0072B2", "#009E73", "#E69F00",
-              "#CC79A7", "#56B4E9", "#D55E00", "#F0E442"
-            ]
+            "range": ["#0072B2","#009E73","#E69F00","#CC79A7","#56B4E9","#D55E00","#F0E442"]
           }
         },
         "tooltip": [
-          { "field": "country", "title": "Country" },
-          { "field": "commissioning_year", "title": "Year" },
+          { "field": "country_long", "title": "Country" },
+          { "field": "commissioning_year", "title": "Year", "format": "d" },
           { "field": "capacity_mw", "type": "quantitative", "title": "Capacity (MW)", "format": ",.0f" }
         ]
       }
     },
-    {
-      "mark": { "type": "rule", "stroke": "#374151", "strokeDash": [6,4] },
-      "encoding": { "x": { "datum": 2010 } }
-    },
-    {
-      "mark": { "type": "text", "align": "left", "dx": 6, "dy": -6, "fontSize": 12, "fill": "#374151" },
-      "encoding": { "x": { "datum": 2010 }, "y": { "datum": 0 }, "text": { "value": "2010 marker" } }
-    },
-    {
-      "transform": [{ "filter": "datum.rank_cap == 1" }],
+
+    { "mark": { "type": "rule", "stroke": "#374151", "strokeDash": [6,4] },
+      "encoding": { "x": { "datum": 2010 } } },
+
+    { "mark": { "type": "text", "align": "left", "dx": 6, "dy": -6, "fontSize": 12, "fill": "#374151" },
+      "encoding": { "x": { "datum": 2010 }, "y": { "datum": 0 }, "text": { "value": "2010 marker" } } },
+
+    { "transform": [{ "filter": "datum.rank_cap == 1" }],
       "mark": { "type": "text", "fontWeight": "bold", "dy": -8 },
       "encoding": {
         "x": { "field": "commissioning_year", "type": "quantitative" },
         "y": { "field": "capacity_mw", "type": "quantitative" },
         "text": { "field": "country", "type": "nominal" },
         "color": { "value": "#111827" }
+      }
+    },
+
+    {
+      "transform": [
+        { "loess": "capacity_mw", "on": "commissioning_year", "bandwidth": 0.3 }
+      ],
+      "mark": { "type": "line", "size": 3, "color": "#d91410" },
+      "encoding": {
+        "x": { "field": "commissioning_year", "type": "quantitative" },
+        "y": { "field": "capacity_mw", "type": "quantitative" }
       }
     }
   ],

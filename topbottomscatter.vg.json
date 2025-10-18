@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Clean electricity share (2024) — distribution with Top & Bottom 5",
+    "title": "Clean electricity share (2024) - Top & Bottom 5",
     "width": 500,
     "height": 300,
   
